@@ -23,10 +23,11 @@
 	<div class="form-container sign-in-container">
 		<form action="#">
 			<h1>Sign in</h1>
-			<input type="email" placeholder="Email" />
-			<input type="password" placeholder="Password" />
-			<a href="#">Forgot your password?</a>
-			<button>Sign In</button>
+			<input type="email" placeholder="Email" id="email"/>
+			<input type="password" placeholder="Password" id='password'/>
+
+			<p id="message"></p>
+			<button onclick="submitForm()">Sign In</button>
 		</form>
 	</div>
 	<div class="overlay-container">
@@ -39,13 +40,58 @@
 			<div class="overlay-panel overlay-right">
 				<h1>Hello, Friend!</h1>
 				<p>Enter your personal details and start journey with us</p>
-				<button class="ghost" id="signUp">Sign Up</button>
+				<button class="ghost" id="signUp" >
+					<a href="user.html" style="color: white;">Sign up</a>
+				</button>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- partial -->
-  <script  src="./register.js"></script>
+  <script >
+function submitForm() {
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+
+      var allowedEmails = [
+        "2211cs020531@mallareddyuniversity.ac.in",
+        "2211cs020525@mallareddyuniversity.ac.in",
+        "2211cs020522@mallareddyuniversity.ac.in",
+        "2211cs020526@mallareddyuniversity.ac.in",
+        "2211cs020529@mallareddyuniversity.ac.in",
+        "2211cs020530@mallareddyuniversity.ac.in"
+      ];
+
+      if (allowedEmails.includes(email)) {
+        var dashboardLink = document.createElement('a');
+        dashboardLink.href = './dashboard.html';
+        dashboardLink.innerText = 'You are admin, Go to Dashboard';
+        document.getElementById('message').innerHTML = '';
+        document.getElementById('message').appendChild(dashboardLink);
+
+        // Optionally, you can prevent the default form submission
+        // if the link is displayed.
+      } else {
+        console.log(email, password);
+
+        fetch('https://yuki-backend.onrender.com/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        }).then(res => res.json())
+          .then(data => {
+            var { msg } = data;
+            console.log(data);
+            document.getElementById('message').innerHTML = msg;
+          }).catch(err => {
+            console.log(err);
+        });
+
+        // Allow the default form submission
+	}}
+  </script>
 
 </body>
 </html>

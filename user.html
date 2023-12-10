@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Today</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="user.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="form-body">
+                    <div class="form-holder">
+                        <div class="form-content">
+                                <div class="form-items">
+                                    <h3>User Profile Settings</h3>
+                                    <p>Fill in the  remaining data below.</p>
+                                    <form class="requires-validation" novalidate id="myForm">
+                                        <div class="form-group">
+                                            <label for="name">Full Name:</label>
+                                            <input class="form-control" type="text" id="name" placeholder="Full Name" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email:</label>
+                                            <input class="form-control" type="email" id="email" placeholder="E-mail Address" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Password:</label>
+                                            <input class="form-control" type="password" id="password" placeholder="Password" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contactNumber">Contact Number:</label>
+                                            <input class="form-control" type="number" id="contactNumber" placeholder="Contact Number" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="address">Address:</label>
+                                            <input class="form-control" type="text" id="address" placeholder="Address" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="state">State:</label>
+                                            <input class="form-control" type="text" id="state" placeholder="State" required>
+                                        </div>
+    
+                                        <div class="form-group">
+                                            <label for="pincode">Pincode:</label>
+                                            <input class="form-control" type="number" id="pincode" placeholder="Pincode" required>
+                                        </div>
+    
+                                        <div class="form-group">
+                                            <label for="country">Country:</label>
+                                            <input class="form-control" type="text" id="country" placeholder="Country" required>
+                                        </div>
+                                        <div class="form-button mt-3">
+                                            <button id="myForm" type="button" class="btn btn-primary" onclick="submitForm()">
+                                            <a href="register.html" style="color: white" >Register</a></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+
+    <!-- CSS to make the page scrollable -->
+    <style>
+        body {
+            overflow-y: auto;
+        }
+
+            /* Remove fixed height */
+    </style>
+
+    <script>
+        function submitForm() {
+            var name = document.getElementById('name').value;
+
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var contactNumber = document.getElementById('contactNumber').value;
+            var address = document.getElementById('address').value;
+            var pincode = document.getElementById('pincode').value;
+            var country = document.getElementById('country').value;
+            var state = document.getElementById('state').value;
+
+
+console.log(email, password, contactNumber, address, pincode, country, state, name)
+            // Send data to the server
+            fetch('https://yuki-backend.onrender.com/auth/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({email, password, contactNumber, address, pincode, country, state, name})
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

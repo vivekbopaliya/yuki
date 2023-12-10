@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management Dashboard</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/icons.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js"></script>
+</head>
+<body>
+    <div class="dashboard"><!-- Dashboard -->
+        <section class="navigation"><!-- Navigation -->
+            
+            
+            <div>
+                <span class="material-icons-outlined"> dashboard </span>
+                <span class="material-icons-outlined"> trending_up </span>
+                <span class="material-icons-outlined"> people_alt </span>
+                <span class="material-icons-outlined"> insert_invitation </span>
+                <span class="material-icons-outlined">settings_suggest</span>
+            </div>
+
+
+        </section><!-- Navigation End -->
+
+        <section class="main"><!-- Main -->
+            
+            <div class="title">
+                <a href="#" class="logo">Kexa.</a>
+                <h1>Complainants</h1>
+
+            </div>
+
+            <div id="complaintList" class="project_list" >
+                
+                <!-- Project List -->
+
+
+    </div><!-- Dashboard End-->
+    
+    <script  >
+               function getAndRenderComplaints() {
+            fetch('https://yuki-backend.onrender.com/complaint/getComplaints')
+                .then(response => response.json())
+                .then(data => renderComplaints(data))
+                .catch(error => console.error('Error:', error));
+        }
+
+        function renderComplaints(complaints) {
+            const complaintListContainer = document.getElementById('complaintList');
+
+            // Clear previous content
+            complaintListContainer.innerHTML = '';
+
+            // Iterate through the array of complaints and create HTML elements
+            complaints.forEach(complaint => {
+                const complaintItem = document.createElement('div');
+                complaintItem.innerHTML = `    <div class="project" style="width: fit-content;; padding:15px 100px; display:flex flex-direction: column;"  data-status="finished" title="Finished Project"><!-- Project1 -->
+                    <div class="category category_color1"></div>
+                    <h2>Complaine Name: ${complaint.complaintName}</h2>
+                    <p>Complainer: ${complaint.user}</p>
+                    <p>Complaint Type: ${complaint.complaintType}</p>
+                    <p>Complaint Description: ${complaint.complaintDescription}</p>
+
+                    <ul class="activity">
+                        <li>Date: ${complaint.registrationDate}</li>
+                        <li>Address: ${complaint.complainantAddress}</li>
+                        <li>Location: ${complaint.incidentLocation}</li>
+                    </ul>
+
+                    
+                </div><!-- Project1 End -->
+                `;
+                complaintListContainer.appendChild(complaintItem);
+            });
+        }
+
+        // Call the function to fetch and render complaints when the page loads
+        document.addEventListener('DOMContentLoaded', getAndRenderComplaints);
+
+        // Call the function to fetch and render complaints when the page loads
+             
+    
+     </script>
+
+</body>
+</html>
